@@ -11,7 +11,7 @@ import Brands from "./Brands.jsx"
 import ImageBmwLogo from './assets/honda-logo.png'
 import ImagePorscheLogo from './assets/posche.png'
 import ImageSubaruLogo from './assets/aston-logo.png'
-import ImageToyotaLogo from './assets/Toyota_logo.png'
+import ImageToyotaLogo from './assets/Toyota_Logo.png'
 import Footer from "./Footer.jsx"
 import ModelsToyotaTop from "./assets/toyota-top.png"
 import ModelsToyotaBottom from "./assets/toyota-bottom.png"
