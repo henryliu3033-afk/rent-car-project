@@ -1,0 +1,466 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: rgb(183, 230, 230);
+  color: white;
+  display: flex;
+  flex-direction: row;
+}
+.navbar {
+  position: fixed;
+  text-decoration: none;
+  background-color: brown;
+  width: 100%;
+  height: 60px;
+  font-size: 1.3rem;
+  display: flex;
+  justify-content: space-between;
+  padding: 0px 15px 0px 15px;
+  align-items: center;
+  overflow: hidden;
+  z-index: 1000;
+}
+
+.header-logo {
+  font-size: 3rem;
+  font-weight: 600;
+  color: white;
+}
+.header-logo a {
+  text-decoration: none;
+  color: white;
+}
+.header-logo a:hover {
+  color: #888;
+}
+li {
+  list-style: none;
+  display: inline-block;
+  margin: 20px;
+  padding: 15px;
+}
+li a {
+  text-decoration: none;
+  color: white;
+  font-size: 1.6rem;
+}
+li a:hover {
+  color: #888;
+  transition: all 0.5s ease;
+}
+.signIn {
+  border: none;
+  width: 80px;
+  height: 30px;
+  background-color: gold;
+  border-radius: 15px;
+}
+.signUp {
+  border: none;
+  width: 70px;
+  height: 30px;
+  background-color: gold;
+  border-radius: 15px;
+}
+.btn {
+  display: flex;
+  gap: 15px;
+}
+.btn:hover {
+  cursor: pointer;
+}
+
+/* hero section */
+
+.hero-section {
+  background: /*url(/self-practice/public/irent.jpg)*/ no-repeat center;
+  height: 100vh;
+  width: 100%;
+  align-items: center;
+}
+.hero-section img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.content {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 500px;
+  overflow: hidden;
+}
+.hero-section h1 {
+  font-size: 3rem;
+  animation: FadeInUp 1s ease 0.6s both;
+}
+.discount {
+  font-size: 4rem;
+  font-weight: 600;
+  color: gold;
+  width: 400px;
+  animation: FadeInUp 1s ease 0.6s both;
+}
+.content button {
+  border: none;
+  margin-top: 20px;
+  font-size: 1.6rem;
+  font-weight: 500;
+  border-radius: 10px;
+  background-color: rgb(255, 223, 40);
+  width: 10%;
+  animation: fadeInUp 1s ease 0.8s both;
+}
+.content button:hover {
+  color: #443f3f;
+  cursor: pointer;
+  transform: translateY(-3px);
+}
+.content p {
+  font-size: 1.2rem;
+  font-weight: 400;
+}
+
+.card {
+  width: 100%;
+  object-fit: fill;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(90deg, rgb(249, 253, 26), rgb(255, 101, 101));
+  color: black;
+  overflow: hidden;
+}
+.card p {
+  font-size: 1.3rem;
+  font-weight: 500;
+}
+.card:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+  transition: all 0.3s ease;
+}
+
+.card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.card-content h2 {
+  font-size: 1.7rem;
+}
+.card-content span {
+  font-size: 2.5rem;
+  font-weight: 600;
+  background: linear-gradient(
+    to right,
+    #ff2d2d,
+    rgb(95, 63, 63),
+    rgb(155, 55, 55),
+    rgb(241, 6, 6)
+  );
+  background-size: 200%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: animate-gradient 2.5s linear infinite;
+}
+.cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+.reservation-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+  height: 100px;
+  background: rgb(240, 75, 75);
+}
+
+.reservation-content label {
+  margin: 10px;
+  padding: 15px;
+  font-size: 1.3rem;
+}
+.reservation-content input {
+  font-size: 1.2rem;
+}
+.reservation-content select {
+  font-size: 1.1rem;
+  margin: 15px;
+}
+.reservation-content button {
+  font-size: 1.2rem;
+  padding: 10px 20px 10px 20px;
+  border: none;
+  border-radius: 10px;
+  background-color: rgb(255, 223, 40);
+}
+.reservation-content button:hover {
+  cursor: pointer;
+  transform: translateY(-3px);
+}
+.aboutUs {
+  background-color: rgb(180, 41, 41);
+  width: 100%;
+  height: 7%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+}
+.aboutUs h1 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+.aboutUs h2 {
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+.aboutUs span {
+  font-size: 1.4rem;
+  color: gold;
+}
+.aboutUs img {
+  aspect-ratio: 16/9;
+  width: 300px;
+  position: absolute;
+  opacity: 0;
+  overflow: hidden;
+  animation: fadeIn 1.4s ease-out forwards;
+}
+.top-left {
+  top: 10px;
+  left: 10px;
+  animation-delay: 0.2s;
+}
+.top-right {
+  top: 10px;
+  right: 10px;
+  animation-delay: 0.4s;
+}
+.bottom-left {
+  bottom: 10px;
+  left: 10px;
+  animation-delay: 0.6s;
+}
+.bottom-right {
+  bottom: 10px;
+  right: 10px;
+  animation-delay: 0.8s;
+}
+
+.carBrands h1 {
+  background: #443f3f;
+  text-align: center;
+  font-size: 3rem;
+
+  padding: 30px;
+}
+.carBrands-logo {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  justify-content: space-between;
+  transition: opacity 0.5s ease;
+}
+.carBrands-logo img {
+  aspect-ratio: 1/1;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  background: linear-gradient(
+    -45deg,
+    rgba(69, 70, 64, 0.3),
+    rgb(71, 77, 78),
+    rgba(157, 158, 146, 0.3),
+    rgb(106, 115, 117)
+  );
+  border: 1px solid #000;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  background-size: 400% 400%;
+  animation: animate-gradient2 10s linear infinite;
+  padding: 12px;
+}
+.cardBrands-logo img:hover {
+  transform: scale(1.05);
+}
+.brands {
+  position: relative;
+
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+.brands:hover {
+  transform: scale(1.01);
+}
+.brands:hover .brand-logo {
+  opacity: 0.1;
+}
+.models img {
+  width: 50%;
+
+  object-fit: fill;
+  height: auto;
+  position: absolute;
+  opacity: 0; /* 初始不可見 */
+  transform: translate(0, 0);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out; /* 只有進場需要動畫 */
+}
+
+/* ⭐ 進場動畫 (hover 時才滑入 + 淡入) */
+/* 左上 */
+.model-top-left {
+  top: 0;
+  left: 0;
+  transform: translate(-50px, -50px);
+}
+.brands:hover .model-top-left {
+  transform: translate(0, 0);
+  opacity: 1;
+}
+
+/* 右上 */
+.model-top-right {
+  top: 0;
+  right: 0;
+  transform: translate(50px, -50px);
+}
+.brands:hover .model-top-right {
+  transform: translate(0, 0);
+  opacity: 1;
+}
+
+/* 左下 */
+.model-bottom-left {
+  bottom: 0;
+  left: 0;
+  transform: translate(-50px, 50px);
+}
+.brands:hover .model-bottom-left {
+  transform: translate(0, 0);
+  opacity: 1;
+}
+
+/* 右下 */
+.model-bottom-right {
+  bottom: 0;
+  right: 0;
+  transform: translate(50px, 50px);
+}
+.brands:hover .model-bottom-right {
+  transform: translate(0, 0);
+  opacity: 1;
+}
+
+/* ⭐ 無淡出效果：滑鼠離開後瞬間隱藏 */
+.brands .models img {
+  transition-delay: 0s; /* 讓消失瞬間 */
+}
+footer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  background-color: brown;
+}
+
+footer p label {
+  margin-left: 20px;
+  font-size: 1.3rem;
+}
+footer button {
+  border: none;
+  width: 80px;
+  height: 30px;
+  background-color: gold;
+  border-radius: 15px;
+}
+footer input {
+  margin-left: 10px;
+  padding: 5px;
+  border-radius: 5px;
+  border: none;
+  width: 300px;
+  height: 25px;
+}
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@keyframes animate-gradient2 {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+@keyframes animate-gradient {
+  to {
+    background-position: 200%;
+  }
+}
+
+@media (max-width: 500px) {
+  li {
+    display: none;
+  }
+}
+@media (max-width: 768px) {
+  .cards {
+    grid-template-columns: 1fr; /* 手機變單欄 */
+  }
+}
+@media (max-width: 768px), (max-width: 1024px) {
+  .brands {
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* 隱藏所有車型圖片 */
+  .models img {
+    display: none;
+  }
+
+  /* Logo 放大一點（可調） */
+  .brands img.brand-logo {
+    width: 80%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+  }
+
+  /* 防止品牌 Logo 在手機版被擠壓 */
+  .carBrands-logo {
+    grid-template-columns: 1fr; /* 手機版 1 欄 */
+    gap: 20px;
+  }
+}
