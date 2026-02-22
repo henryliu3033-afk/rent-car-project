@@ -3,13 +3,16 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+/* ✅ FIX 1: body was flex-direction: row — broke entire page layout */
 body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   background-color: rgb(183, 230, 230);
   color: white;
-  display: flex;
-  flex-direction: row;
+  display: block; /* was: display:flex; flex-direction:row */
 }
+
+/* === NAVBAR === */
 .navbar {
   position: fixed;
   text-decoration: none;
@@ -19,14 +22,14 @@ body {
   font-size: 1.3rem;
   display: flex;
   justify-content: space-between;
-  padding: 0px 15px 0px 15px;
+  padding: 0px 15px;
   align-items: center;
-  overflow: hidden;
   z-index: 1000;
+  /* removed overflow:hidden — was clipping dropdown on mobile */
 }
 
 .header-logo {
-  font-size: 3rem;
+  font-size: 2rem; /* was 3rem — too big, crowded the nav */
   font-weight: 600;
   color: white;
 }
@@ -35,52 +38,105 @@ body {
   color: white;
 }
 .header-logo a:hover {
-  color: #888;
+  color: #ccc;
+}
+
+/* Nav links */
+.nav-links {
+  display: flex;
+  align-items: center;
 }
 li {
   list-style: none;
   display: inline-block;
-  margin: 20px;
-  padding: 15px;
+  margin: 0 8px;
+  padding: 10px;
 }
 li a {
   text-decoration: none;
   color: white;
-  font-size: 1.6rem;
+  font-size: 1.1rem; /* was 1.6rem — too large */
 }
 li a:hover {
-  color: #888;
-  transition: all 0.5s ease;
+  color: #ccc;
+  transition: all 0.3s ease;
 }
-.signIn {
-  border: none;
-  width: 80px;
-  height: 30px;
-  background-color: gold;
-  border-radius: 15px;
-}
+
+/* Auth buttons */
+.signIn,
 .signUp {
   border: none;
-  width: 70px;
-  height: 30px;
+  padding: 6px 16px;
   background-color: gold;
   border-radius: 15px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  white-space: nowrap;
 }
 .btn {
   display: flex;
-  gap: 15px;
+  gap: 10px;
+  align-items: center;
 }
-.btn:hover {
+
+/* ✅ Hamburger button — hidden on desktop */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
   cursor: pointer;
+  background: none;
+  border: none;
+  padding: 5px;
+}
+.hamburger span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background-color: white;
+  border-radius: 2px;
+  transition: all 0.3s ease;
 }
 
-/* hero section */
+/* Mobile dropdown menu */
+.mobile-menu {
+  display: none;
+  position: fixed;
+  top: 60px;
+  left: 0;
+  width: 100%;
+  background-color: brown;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 0;
+  z-index: 999;
+}
+.mobile-menu.open {
+  display: flex;
+}
+.mobile-menu li {
+  display: block;
+  margin: 10px 0;
+  padding: 5px;
+  text-align: center;
+}
+.mobile-menu li a {
+  font-size: 1.3rem;
+}
+.mobile-menu .btn {
+  margin-top: 15px;
+}
 
+/* === HERO SECTION === */
+/* === HERO SECTION === */
+
+/* Desktop: full viewport, content overlaid on image */
 .hero-section {
-  background: /*url(/self-practice/public/irent.jpg)*/ no-repeat center;
   height: 100vh;
   width: 100%;
-  align-items: center;
+  position: relative;
+  overflow: hidden;
+  padding-top: 60px;
 }
 .hero-section img {
   width: 100%;
@@ -90,34 +146,38 @@ li a:hover {
 .content {
   position: absolute;
   width: 100%;
-  height: 100%;
+  bottom: 0;
   top: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  margin-top: 500px;
-  overflow: hidden;
+  justify-content: flex-end;
+  padding: 0 20px 60px 20px;
+  text-align: center;
+  background: linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 60%);
 }
 .hero-section h1 {
-  font-size: 3rem;
+  font-size: clamp(1.5rem, 4vw, 3rem);
+  text-shadow: 0 2px 8px rgba(0,0,0,0.6);
   animation: FadeInUp 1s ease 0.6s both;
 }
 .discount {
-  font-size: 4rem;
+  font-size: clamp(2rem, 5vw, 4rem);
   font-weight: 600;
   color: gold;
-  width: 400px;
+  max-width: 100%;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.5);
   animation: FadeInUp 1s ease 0.6s both;
 }
 .content button {
   border: none;
   margin-top: 20px;
-  font-size: 1.6rem;
+  font-size: 1.2rem;
   font-weight: 500;
   border-radius: 10px;
   background-color: rgb(255, 223, 40);
-  width: 10%;
+  padding: 10px 30px;
+  min-width: 140px;
   animation: fadeInUp 1s ease 0.8s both;
 }
 .content button:hover {
@@ -126,13 +186,55 @@ li a:hover {
   transform: translateY(-3px);
 }
 .content p {
-  font-size: 1.2rem;
+  font-size: clamp(0.9rem, 2vw, 1.2rem);
   font-weight: 400;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.6);
 }
 
+/* --- Mobile (≤ 768px) --- */
+@media (max-width: 768px) {
+
+  /* Hero switches from overlay → stacked */
+  .hero-section {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    padding-top: 60px;
+  }
+  .hero-section img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+  .content {
+    position: relative; /* key change — no longer absolute overlay */
+    top: auto;
+    background: linear-gradient(135deg, rgb(180, 41, 41), rgb(100, 20, 20));
+    padding: 28px 20px;
+    text-align: center;
+  }
+  .hero-section h1 {
+    font-size: 1.4rem;
+  }
+  .discount {
+    font-size: 2rem;
+    display: block;
+  }
+  .content p {
+    font-size: 0.95rem;
+    margin-top: 8px;
+  }
+  .content button {
+    font-size: 1rem;
+    padding: 10px 28px;
+    margin-top: 14px;
+  }
+}
+
+/* === CARDS === */
 .card {
   width: 100%;
-  object-fit: fill;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -140,27 +242,31 @@ li a:hover {
   background: linear-gradient(90deg, rgb(249, 253, 26), rgb(255, 101, 101));
   color: black;
   overflow: hidden;
+  min-height: 350px; /* ← prevents card from collapsing */
+}
+.card img {
+  width: 100%;
+  height: clamp(280px, 35vw, 600px); /* give images a consistent height */
+  object-fit: cover;
+}
+.card-content {
+  padding: 15px;
+  text-align: center;
+}
+.card-content h2 {
+  font-size: clamp(1rem, 2.5vw, 1.7rem);
 }
 .card p {
-  font-size: 1.3rem;
+  font-size: 1.1rem;
   font-weight: 500;
 }
 .card:hover {
   cursor: pointer;
-  transform: scale(1.05);
+  transform: scale(1.02);
   transition: all 0.3s ease;
 }
-
-.card img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-.card-content h2 {
-  font-size: 1.7rem;
-}
 .card-content span {
-  font-size: 2.5rem;
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
   font-weight: 600;
   background: linear-gradient(
     to right,
@@ -179,31 +285,42 @@ li a:hover {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
 }
+
+/* === RESERVATION === */
+/* ✅ FIX 5: height:100px with no flex-wrap — content overflows on mobile */
 .reservation-content {
   display: flex;
+  flex-wrap: wrap; /* allow wrapping */
   align-items: center;
   justify-content: center;
   text-align: center;
   width: 100%;
-  height: 100px;
+  min-height: 100px; /* min-height instead of fixed height */
+  height: auto;
+  padding: 15px 10px;
+  gap: 8px;
   background: rgb(240, 75, 75);
 }
-
 .reservation-content label {
-  margin: 10px;
-  padding: 15px;
-  font-size: 1.3rem;
+  margin: 5px;
+  padding: 8px;
+  font-size: 1.1rem;
 }
 .reservation-content input {
-  font-size: 1.2rem;
+  font-size: 1rem;
+  padding: 6px 8px;
+  border-radius: 6px;
+  border: none;
 }
 .reservation-content select {
-  font-size: 1.1rem;
-  margin: 15px;
+  font-size: 1rem;
+  margin: 5px;
+  padding: 6px;
+  border-radius: 6px;
 }
 .reservation-content button {
-  font-size: 1.2rem;
-  padding: 10px 20px 10px 20px;
+  font-size: 1rem;
+  padding: 10px 20px;
   border: none;
   border-radius: 10px;
   background-color: rgb(255, 223, 40);
@@ -212,10 +329,14 @@ li a:hover {
   cursor: pointer;
   transform: translateY(-3px);
 }
+
+/* === ABOUT === */
+/* ✅ FIX 7: height: 7% — % height only works with a defined parent height, section collapsed */
 .aboutUs {
   background-color: rgb(180, 41, 41);
   width: 100%;
-  height: 7%;
+  height: auto; /* was: height: 7% — broken */
+  padding: 50px 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -223,16 +344,22 @@ li a:hover {
   text-align: center;
   position: relative;
 }
+.aboutUs p {
+  max-width: 800px;
+  line-height: 1.8;
+  font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+}
 .aboutUs h1 {
-  font-size: 2.5rem;
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
   margin-bottom: 20px;
 }
 .aboutUs h2 {
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   font-weight: 500;
+  margin: 10px 0 5px;
 }
 .aboutUs span {
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   color: gold;
 }
 .aboutUs img {
@@ -243,38 +370,21 @@ li a:hover {
   overflow: hidden;
   animation: fadeIn 1.4s ease-out forwards;
 }
-.top-left {
-  top: 10px;
-  left: 10px;
-  animation-delay: 0.2s;
-}
-.top-right {
-  top: 10px;
-  right: 10px;
-  animation-delay: 0.4s;
-}
-.bottom-left {
-  bottom: 10px;
-  left: 10px;
-  animation-delay: 0.6s;
-}
-.bottom-right {
-  bottom: 10px;
-  right: 10px;
-  animation-delay: 0.8s;
-}
+.top-left  { top: 10px; left: 10px; animation-delay: 0.2s; }
+.top-right  { top: 10px; right: 10px; animation-delay: 0.4s; }
+.bottom-left { bottom: 10px; left: 10px; animation-delay: 0.6s; }
+.bottom-right { bottom: 10px; right: 10px; animation-delay: 0.8s; }
 
+/* === CAR BRANDS === */
 .carBrands h1 {
   background: #443f3f;
   text-align: center;
-  font-size: 3rem;
-
+  font-size: clamp(1.8rem, 4vw, 3rem);
   padding: 30px;
 }
 .carBrands-logo {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  justify-content: space-between;
   transition: opacity 0.5s ease;
 }
 .carBrands-logo img {
@@ -297,12 +407,8 @@ li a:hover {
   animation: animate-gradient2 10s linear infinite;
   padding: 12px;
 }
-.cardBrands-logo img:hover {
-  transform: scale(1.05);
-}
 .brands {
   position: relative;
-
   overflow: hidden;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
   cursor: pointer;
@@ -316,151 +422,202 @@ li a:hover {
 }
 .models img {
   width: 50%;
-
   object-fit: fill;
   height: auto;
   position: absolute;
-  opacity: 0; /* 初始不可見 */
+  opacity: 0;
   transform: translate(0, 0);
-  transition: opacity 0.8s ease-out, transform 0.8s ease-out; /* 只有進場需要動畫 */
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
 }
 
-/* ⭐ 進場動畫 (hover 時才滑入 + 淡入) */
-/* 左上 */
-.model-top-left {
-  top: 0;
-  left: 0;
-  transform: translate(-50px, -50px);
-}
-.brands:hover .model-top-left {
-  transform: translate(0, 0);
-  opacity: 1;
-}
+/* Model hover animations */
+.model-top-left { top: 0; left: 0; transform: translate(-50px, -50px); }
+.brands:hover .model-top-left { transform: translate(0, 0); opacity: 1; }
 
-/* 右上 */
-.model-top-right {
-  top: 0;
-  right: 0;
-  transform: translate(50px, -50px);
-}
-.brands:hover .model-top-right {
-  transform: translate(0, 0);
-  opacity: 1;
-}
+.model-top-right { top: 0; right: 0; transform: translate(50px, -50px); }
+.brands:hover .model-top-right { transform: translate(0, 0); opacity: 1; }
 
-/* 左下 */
-.model-bottom-left {
-  bottom: 0;
-  left: 0;
-  transform: translate(-50px, 50px);
-}
-.brands:hover .model-bottom-left {
-  transform: translate(0, 0);
-  opacity: 1;
-}
+.model-bottom-left { bottom: 0; left: 0; transform: translate(-50px, 50px); }
+.brands:hover .model-bottom-left { transform: translate(0, 0); opacity: 1; }
 
-/* 右下 */
-.model-bottom-right {
-  bottom: 0;
-  right: 0;
-  transform: translate(50px, 50px);
-}
-.brands:hover .model-bottom-right {
-  transform: translate(0, 0);
-  opacity: 1;
-}
+.model-bottom-right { bottom: 0; right: 0; transform: translate(50px, 50px); }
+.brands:hover .model-bottom-right { transform: translate(0, 0); opacity: 1; }
 
-/* ⭐ 無淡出效果：滑鼠離開後瞬間隱藏 */
 .brands .models img {
-  transition-delay: 0s; /* 讓消失瞬間 */
+  transition-delay: 0s;
 }
+
+/* === FOOTER === */
 footer {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
+  padding: 30px 20px;
   background-color: brown;
+  text-align: center;
 }
-
-footer p label {
-  margin-left: 20px;
-  font-size: 1.3rem;
+footer label {
+  font-size: 1.1rem;
 }
 footer button {
   border: none;
-  width: 80px;
-  height: 30px;
+  padding: 6px 20px;
+  height: 34px;
   background-color: gold;
   border-radius: 15px;
+  cursor: pointer;
+  font-size: 0.95rem;
 }
+/* ✅ FIX 6: width: 300px on small screens would overflow */
 footer input {
-  margin-left: 10px;
-  padding: 5px;
+  padding: 5px 10px;
   border-radius: 5px;
   border: none;
-  width: 300px;
-  height: 25px;
+  width: min(300px, 85vw); /* 300px max, but shrinks on small screens */
+  height: 34px;
+  font-size: 1rem;
 }
+footer p {
+  font-size: 0.95rem;
+}
+
+/* === KEYFRAMES === */
 @keyframes fadeIn {
-  0% {
-    opacity: 0;
-    transform: scale(0.85);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
+  0%   { opacity: 0; transform: scale(0.85); }
+  100% { opacity: 1; transform: scale(1); }
 }
 @keyframes animate-gradient2 {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 100%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 100%; }
+  100% { background-position: 0% 50%; }
 }
 @keyframes animate-gradient {
-  to {
-    background-position: 200%;
-  }
+  to { background-position: 200%; }
+}
+@keyframes FadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
-@media (max-width: 500px) {
-  li {
-    display: none;
-  }
-}
-@media (max-width: 768px) {
-  .cards {
-    grid-template-columns: 1fr; /* 手機變單欄 */
-  }
-}
-@media (max-width: 768px), (max-width: 1024px) {
-  .brands {
-    position: relative;
-    overflow: hidden;
-  }
+/* ============================================================
+   RESPONSIVE BREAKPOINTS
+   ============================================================ */
 
-  /* 隱藏所有車型圖片 */
+/* ✅ FIX 8: Was `@media (max-width: 768px), (max-width: 1024px)`
+   The comma creates two separate rules — the 1024px one
+   always wins, making it apply to ALL screens ≤ 1024px
+   (including tablets). Fixed by using a single breakpoint. */
+
+/* --- Tablet (769px – 1024px) --- */
+@media (max-width: 1024px) {
   .models img {
-    display: none;
+    display: none; /* hide hover car models on tablet */
   }
-
-  /* Logo 放大一點（可調） */
   .brands img.brand-logo {
     width: 80%;
     height: auto;
     display: block;
     margin: 0 auto;
   }
+}
 
-  /* 防止品牌 Logo 在手機版被擠壓 */
+
+/* --- Mobile (≤ 768px) --- */
+@media (max-width: 768px) {
+  /* Cards go single column */
+  .cards {
+    grid-template-columns: 1fr;
+  }
+
+  /* Brand logos go single column */
   .carBrands-logo {
-    grid-template-columns: 1fr; /* 手機版 1 欄 */
-    gap: 20px;
+    grid-template-columns: 1fr;
+  }
+
+  /* --- Mobile (≤ 768px) --- */
+@media (max-width: 768px) {
+
+  /* Hero switches from overlay → stacked */
+  .hero-section {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    padding-top: 60px;
+  }
+  .hero-section img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+  .content {
+    position: relative; /* key change — no longer absolute overlay */
+    top: auto;
+    background: linear-gradient(135deg, rgb(180, 41, 41), rgb(100, 20, 20));
+    padding: 28px 20px;
+    text-align: center;
+  }
+  .hero-section h1 {
+    font-size: 1.4rem;
+  }
+  .discount {
+    font-size: 2rem;
+    display: block;
+  }
+  .content p {
+    font-size: 0.95rem;
+    margin-top: 8px;
+  }
+  .content button {
+    font-size: 1rem;
+    padding: 10px 28px;
+    margin-top: 14px;
+  }
+}
+
+  /* Hide hover car models */
+  .models img {
+    display: none;
+  }
+  .brands img.brand-logo {
+    width: 70%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+  }
+
+  /* Reservation wraps nicely */
+  .reservation-content {
+    flex-direction: column;
+    height: auto;
+    padding: 20px;
+  }
+
+  /* Hero text smaller */
+  .hero-section h1 {
+    font-size: 1.5rem;
+  }
+  .discount {
+    font-size: 2rem;
+  }
+}
+
+/* --- Small mobile (≤ 500px) --- */
+@media (max-width: 500px) {
+  /* ✅ FIX 9: Nav links hidden → show hamburger menu instead */
+  .nav-links {
+    display: none; /* hide desktop nav */
+  }
+  .hamburger {
+    display: flex; /* show hamburger button */
+  }
+  .btn {
+    display: none; /* hide desktop buttons (shown in mobile menu) */
+  }
+
+  .header-logo {
+    font-size: 1.6rem;
   }
 }

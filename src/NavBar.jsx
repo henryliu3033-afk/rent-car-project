@@ -10,7 +10,7 @@ function NavBar(){
             <li><a href="#" className="home">Home</a></li>
             <li><a href="#" className="about">About</a></li>
             <li><a href="#" className="services">Services</a></li>
-            <li><a href="#" className="contact">Contact Us</a></li>
+          
         </ul>
         <div className="btn">
         <button className="signIn">Sign In</button>
