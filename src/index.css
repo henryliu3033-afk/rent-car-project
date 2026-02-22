@@ -329,6 +329,37 @@ li a:hover {
   cursor: pointer;
   transform: translateY(-3px);
 }
+/* ===== MOBILE OPTIMIZATION ===== */
+@media (max-width: 768px) {
+
+  .reservation-content {
+    flex-direction: column;
+    gap: 5px;
+    padding: 12px;
+  }
+
+  .reservation-content label {
+    font-size: 0.9rem;
+    margin: 2px 0;
+  }
+
+  .reservation-content input,
+  .reservation-content select {
+    width: 100%;
+    font-size: 0.9rem;
+    padding: 6px 8px;
+    border-radius: 6px;
+  
+  }
+
+  .reservation-content button {
+    width: 100%;
+    font-size: 0.95rem;
+    padding: 8px;
+    border-radius: 8px;
+  }
+
+}
 
 /* === ABOUT === */
 /* ✅ FIX 7: height: 7% — % height only works with a defined parent height, section collapsed */
